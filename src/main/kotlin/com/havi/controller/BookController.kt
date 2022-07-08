@@ -13,7 +13,7 @@ class BookController(
 ) {
     @GetMapping
     fun getBookList(model: Model): String {
-        // model.addAttribute("bookList", bookService.getBookList())
+        model.addAttribute("bookList", bookService.getBookList())
         return "book"
     }
 }
