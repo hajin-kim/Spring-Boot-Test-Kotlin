@@ -2,6 +2,7 @@ package com.havi.bookRestTest
 
 import com.havi.service.BookRestService
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.junit.rules.ExpectedException
@@ -19,8 +20,9 @@ import org.springframework.test.web.client.response.MockRestResponseCreators.wit
 @RunWith(SpringRunner::class)
 @RestClientTest(BookRestService::class)
 class BookRestTest {
-    @Rule
-    var thrown: ExpectedException = ExpectedException.none()
+    // Deprecated. Use Assert.assertThrows for an alternative
+    // @Rule
+    // var thrown: ExpectedException = ExpectedException.none()
 
     @Autowired
     private lateinit var bookRestService: BookRestService
@@ -40,7 +42,6 @@ class BookRestTest {
     fun restErrorTest() {
         server.expect(requestTo("/rest/test"))
             .andRespond(withServerError())
-        thrown.expect(java.lang.Exception::class.java)
-        bookRestService.getRestBook()
+        Assert.assertThrows(java.lang.Exception::class.java) { bookRestService.getRestBook() }
     }
 }
